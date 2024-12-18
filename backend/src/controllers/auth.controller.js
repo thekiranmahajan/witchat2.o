@@ -92,3 +92,7 @@ export const logout = async (req, res) => {
     });
   }
 };
+
+export const updateProfile = (req, res) => {
+  res.send("updateProfile");
+};
