@@ -1,5 +1,11 @@
+import Navbar from "./components/Navbar";
+
 const App = () => {
-  return <div className="bg-red-300 text-center text-4xl">Frontend</div>;
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 };
 
 export default App;
