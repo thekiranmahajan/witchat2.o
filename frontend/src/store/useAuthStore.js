@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import axiosInstance from "../lib/axiosInstance";
-import { data } from "react-router-dom";
 
 const useAuthStore = create((set) => ({
   authUser: null,
@@ -11,10 +10,12 @@ const useAuthStore = create((set) => ({
 
   checkAuth: async () => {
     try {
-      const { data } = axiosInstance.post("/auth/check");
+      const { data } = await axiosInstance.get("/auth/check");
+
       set({ authUser: data });
     } catch (error) {
       console.log("Error in checkAuth", error);
+      set({ authUser: null });
     } finally {
       set({ isCheckingAuth: false });
     }
