@@ -4,7 +4,7 @@ import { Loader2, Lock, Mail, User } from "lucide-react";
 import InputField from "../components/InputField";
 import { Link } from "react-router-dom";
 import Logo from "../components/Logo";
-import AuthImagePattern from "../components/AuthImagePattern";
+import AnimatedGridSection from "../components/AnimatedGridSection";
 import toast from "react-hot-toast";
 
 const SignUpPage = () => {
@@ -124,7 +124,7 @@ const SignUpPage = () => {
           {/* Right Side */}
         </div>
       </div>
-      <AuthImagePattern
+      <AnimatedGridSection
         heading="Join our community"
         subHeading="Connect with friends, share moments, and stay touch with your loved ones"
       />

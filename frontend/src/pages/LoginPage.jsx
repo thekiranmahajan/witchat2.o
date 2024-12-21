@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useAuthStore from "../store/useAuthStore";
-import AuthImagePattern from "../components/AuthImagePattern";
+import AnimatedGridSection from "../components/AnimatedGridSection";
 import { Loader2, Lock, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import Logo from "../components/Logo";
@@ -19,7 +19,7 @@ const LoginPage = () => {
     login(formData);
   };
   return (
-    <div className="mt-16 lg:mt-10 grid min-h-screen  lg:grid-cols-2">
+    <div className="mt-16 grid min-h-screen lg:mt-10 lg:grid-cols-2">
       {/* Left Side */}
       <div className="flex flex-col items-center justify-center p-6 sm:p-12">
         <div className="w-full max-w-md space-y-8">
@@ -80,7 +80,7 @@ const LoginPage = () => {
           {/* Right Side */}
         </div>
       </div>
-      <AuthImagePattern
+      <AnimatedGridSection
         heading="Welcome back!"
         subHeading="Sign in to continue your conversations and catch up with your messages"
       />

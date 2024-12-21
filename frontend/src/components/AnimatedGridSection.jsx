@@ -1,4 +1,4 @@
-const AuthImagePattern = ({ heading, subHeading }) => {
+const AnimatedGridSection = ({ heading, subHeading }) => {
   return (
     <div className="hidden items-center justify-center bg-base-200 p-12 lg:flex">
       <div className="max-w-md text-center">
@@ -17,4 +17,4 @@ const AuthImagePattern = ({ heading, subHeading }) => {
   );
 };
 
-export default AuthImagePattern;
+export default AnimatedGridSection;
