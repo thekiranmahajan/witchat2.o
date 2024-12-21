@@ -6,7 +6,7 @@ const AnimatedGridSection = ({ heading, subHeading }) => {
           {[...Array(9)].map((_, index) => (
             <div
               key={index}
-              className={`aspect-square rounded-2xl bg-primary/10 ${index % 2 === 0 ? "animate-pulse" : ""}`}
+              className={`aspect-square rounded-2xl bg-primary/10 ${index % 2 === 0 ? "animate-pulse bg-neutral/20" : ""}`}
             ></div>
           ))}
         </div>
