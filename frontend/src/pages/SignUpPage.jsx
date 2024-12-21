@@ -72,7 +72,7 @@ const SignUpPage = () => {
             <InputField
               type="text"
               fieldName="fullName"
-              placeholder="John Doe"
+              placeholder="Kiran Mahajan"
               label="Full Name"
               icon={User}
               formData={formData}
@@ -81,7 +81,7 @@ const SignUpPage = () => {
             <InputField
               type="text"
               fieldName="email"
-              placeholder="you@example.com"
+              placeholder="kiran.mahajan@example.com"
               label="Email"
               icon={Mail}
               formData={formData}
