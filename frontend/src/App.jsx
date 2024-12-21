@@ -1,4 +1,4 @@
-import Navbar from "./components/Navbar";
+import Header from "./components/Header";
 import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
@@ -26,7 +26,7 @@ const App = () => {
     );
   return (
     <div>
-      <Navbar />
+      <Header />
       <Routes>
         <Route
           path="/"
