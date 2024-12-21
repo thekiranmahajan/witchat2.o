@@ -29,7 +29,7 @@ const ProfilePage = () => {
     };
   };
   return (
-    <div className="h-screen pt-20">
+    <div className="min-h-screen pt-20">
       <div className="mx-auto max-w-2xl p-4 py-8">
         <div className="space-y-8 rounded-xl bg-base-300 p-6">
           <div className="text-center">
