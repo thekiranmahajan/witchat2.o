@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 const useAuthStore = create((set) => ({
   authUser: null,
   isSigningUp: false,
-  isLoggining: false,
+  isLoggingIn: false,
   isProfileUpdating: false,
   isCheckingAuth: true,
 
@@ -37,7 +37,7 @@ const useAuthStore = create((set) => ({
     }
   },
   login: async (formData) => {
-    set({ isLoggining: true });
+    set({ isLoggingIn: true });
 
     try {
       const { data } = await axiosInstance.post("/auth/login", formData);
@@ -47,7 +47,7 @@ const useAuthStore = create((set) => ({
       console.log("Error in login fn", error);
       toast.error(error.response.data.message);
     } finally {
-      set({ isLoggining: false });
+      set({ isLoggingIn: false });
     }
   },
   logout: async () => {

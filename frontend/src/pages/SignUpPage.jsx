@@ -52,10 +52,10 @@ const SignUpPage = () => {
     signup(formData);
   };
   return (
-    <div className="grid min-h-screen lg:grid-cols-2">
+    <div className="mt-16 grid min-h-screen lg:mt-10 lg:grid-cols-2">
       {/* Left Side */}
       <div className="flex flex-col items-center justify-center p-6 sm:p-12">
-        <div className="w-full max-w-md space-y-8">
+        <div className="w-full max-w-md space-y-6">
           {/* Logo */}
           <div className="mb-8 text-center">
             <div className="group flex flex-col items-center gap-2">
@@ -68,7 +68,7 @@ const SignUpPage = () => {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <InputField
               type="text"
               fieldName="fullName"
@@ -81,7 +81,7 @@ const SignUpPage = () => {
             <InputField
               type="text"
               fieldName="email"
-              placeholder="you@exampl.com"
+              placeholder="you@example.com"
               label="Email"
               icon={Mail}
               formData={formData}
