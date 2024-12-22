@@ -34,7 +34,21 @@ const MessageInput = () => {
     setImagePreview(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
-  const handleSendMessage = async (e) => {};
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
+    if (!text.trim() && !imagePreview) return;
+
+    try {
+      await sendMessage({ text: text.trim(), image: imagePreview });
+
+      // Clearing input fields after sending message
+      setText("");
+      setImagePreview(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    } catch (error) {
+      console.log("Error sending message:", error);
+    }
+  };
 
   return (
     <div className="w-full p-4">
@@ -84,7 +98,7 @@ const MessageInput = () => {
         </div>
         <button
           type="submit"
-          className="btn btn-circle btn-sm"
+          className="btn btn-circle"
           disabled={!text.trim() && !imagePreview}
         >
           <Send className="size-6 md:size-7" />
