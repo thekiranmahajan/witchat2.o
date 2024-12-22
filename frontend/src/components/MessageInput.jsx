@@ -30,7 +30,10 @@ const MessageInput = () => {
     };
     reader.readAsDataURL(image);
   };
-  const handleRemoveImage = () => {};
+  const handleRemoveImage = () => {
+    setImagePreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
   const handleSendMessage = async (e) => {};
 
   return (
@@ -47,7 +50,7 @@ const MessageInput = () => {
             <button
               type="button"
               onClick={handleRemoveImage}
-              className="absolute -top-1.5 flex size-5 items-center justify-center rounded-full bg-base-300"
+              className="absolute -right-1.5 -top-1.5 flex size-5 items-center justify-center rounded-full bg-base-300"
             >
               <X className="size-3" />
             </button>
