@@ -8,19 +8,22 @@ const ProfilePage = () => {
   const [selectedProfilePic, setSelectedProfilePic] = useState(null);
 
   const handleProfileUpdate = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    console.log(file);
-    if (file.size > 10 * 1024 * 1024) {
+    const image = e.target.files[0];
+    if (!image) {
+      toast.error("No image is selected");
+      return;
+    }
+
+    if (image.size > 10 * 1024 * 1024) {
       toast.error("File size exceeds 10MB");
       return;
     }
-    if (!file.type.startsWith("image/")) {
+    if (!image.type.startsWith("image/")) {
       toast.error("File is not an image");
       return;
     }
     const reader = new FileReader();
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(image);
 
     reader.onload = async () => {
       const base64Image = reader.result;
