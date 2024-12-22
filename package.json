@@ -1,0 +1,19 @@
+{
+  "name": "witchat2.o",
+  "version": "1.0.0",
+  "description": "A realtime chat application built using MERN stack with seemless UI and functionality.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "npm run start --prefix backend"
+  },
+  "keywords": [
+    "MERN",
+    "ChatApp",
+    "WitChat",
+    "Socket.io",
+    "Realtime"
+  ],
+  "author": "Kiran Mahajan",
+  "license": "MIT"
+}

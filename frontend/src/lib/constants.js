@@ -41,3 +41,5 @@ export const PREVIEW_MESSAGES = [
     isSent: true,
   },
 ];
+
+export const BACKEND_BASE_URL = "http://localhost:5001/api";
