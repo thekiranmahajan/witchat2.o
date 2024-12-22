@@ -34,8 +34,11 @@ const useChatStore = create((set) => ({
       set({ isMessagesLoading: false });
     }
   },
-  setSelectedUser: (user) => {
-    set({ selectedUser: user });
+  setSelectedUser: (userId) => {
+    set((state) => {
+      const selectedUser = state.users.find((user) => user._id === userId);
+      return { selectedUser };
+    });
   },
 }));
 export default useChatStore;
