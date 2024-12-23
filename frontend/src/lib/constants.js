@@ -42,4 +42,4 @@ export const PREVIEW_MESSAGES = [
   },
 ];
 
-export const BACKEND_BASE_URL = "http://localhost:5001/api";
+export const BACKEND_BASE_URL = "http://localhost:5001";

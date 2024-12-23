@@ -11,4 +11,12 @@ const io = new Server(server, {
   },
 });
 
+io.on("connection", (socket) => {
+  console.log("A user is connected", socket.id);
+
+  socket.on("disconnect", () => {
+    console.log("A user is disconnected", socket.id);
+  });
+});
+
 export { io, app, server };
