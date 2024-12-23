@@ -5,7 +5,7 @@ import useThemeStore from "../store/useThemeStore";
 const SettingsPage = () => {
   const { theme, setTheme } = useThemeStore();
   return (
-    <div className="container mx-auto min-h-screen max-w-5xl px-4 pt-20 pb-10">
+    <div className="container mx-auto min-h-screen max-w-5xl px-4 pb-10 pt-20">
       <div className="space-y-6">
         <div className="flex flex-col gap-1">
           <h2 className="text-lg font-semibold">Theme</h2>

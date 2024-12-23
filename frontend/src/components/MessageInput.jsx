@@ -51,7 +51,7 @@ const MessageInput = () => {
   };
 
   return (
-    <div className="w-full p-4">
+    <div className="sticky bottom-0 w-full bg-base-100/90 p-3 sm:max-h-9 sm:p-4">
       {/* Image Preview over input field */}
       {imagePreview && (
         <div className="mb-3 flex items-center gap-2">
@@ -72,11 +72,14 @@ const MessageInput = () => {
         </div>
       )}
       {/* Message input bar */}
-      <form className="flex items-center gap-2" onSubmit={handleSendMessage}>
-        <div className="flex flex-1 gap-2">
+      <form
+        className="flex items-center gap-1 sm:gap-2"
+        onSubmit={handleSendMessage}
+      >
+        <div className="flex flex-1 items-center gap-2">
           <input
             type="text"
-            className="input input-sm input-bordered w-full rounded-lg sm:input-md"
+            className="input input-md input-bordered w-full rounded-lg"
             placeholder="Type a message..."
             value={text}
             onChange={(e) => setText(e.target.value)}
@@ -90,15 +93,15 @@ const MessageInput = () => {
           />
           <button
             type="button"
-            className={`btn btn-circle hidden sm:flex ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
+            className={`btn btn-circle btn-ghost flex ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
             onClick={() => fileInputRef.current.click()}
           >
-            <Image className="size-6" />
+            <Image className="size-5 sm:size-6" />
           </button>
         </div>
         <button
           type="submit"
-          className="btn btn-circle"
+          className="btn btn-circle btn-ghost"
           disabled={!text.trim() && !imagePreview}
         >
           <Send className="size-6 md:size-7" />

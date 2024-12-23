@@ -1,13 +1,17 @@
 import { Users } from "lucide-react";
+import useChatStore from "../../store/useChatStore";
 
 const SidebarSkeleton = () => {
   const skeletonContacts = Array(8).fill(null);
+  const { selectedUser } = useChatStore();
 
   return (
-    <aside className="flex h-full w-20 flex-col border-r border-base-300 transition-all duration-200 lg:w-72">
+    <aside
+      className={`h-full w-14 flex-col border-r border-base-300 transition-all duration-200 sm:w-16 lg:w-72 ${selectedUser ? "hidden sm:flex" : "flex"}`}
+    >
       {/* Header */}
-      <div className="w-full border-b border-base-300 p-5">
-        <div className="flex items-center gap-2">
+      <div className="w-full border-b border-base-300 lg:p-5">
+        <div className="flex items-center justify-center gap-2 py-5 lg:justify-normal">
           <Users className="size-6" />
           <span className="hidden font-medium lg:block">Contacts</span>
         </div>

@@ -21,9 +21,11 @@ const Sidebar = () => {
 
   if (isUsersLoading) return <SidebarSkeleton />;
   return (
-    <aside className="flex h-full w-20 flex-col border-r border-base-300 transition-all duration-200 lg:w-72">
+    <aside
+      className={`h-full w-14 flex-col border-r border-base-300 transition-all duration-200 sm:w-16 lg:w-72 ${selectedUser ? "hidden sm:flex" : "flex"}`}
+    >
       <div className="w-full border-b border-base-300 lg:p-5">
-        <div className="flex items-center gap-2 p-5">
+        <div className="flex items-center justify-center gap-2 py-5 lg:justify-normal">
           <Users className="size-6" />
           <span className="hidden font-medium lg:block">Contacts</span>
         </div>
@@ -48,7 +50,7 @@ const Sidebar = () => {
           <button
             key={user._id}
             onClick={() => setSelectedUser(user._id)}
-            className={`flex w-full items-center gap-3 p-3 transition-colors hover:bg-base-300 ${selectedUser && selectedUser._id === user._id ? "bg-base-300 ring-1 ring-base-300" : ""}`}
+            className={`flex w-full items-center gap-3 p-2 transition-colors hover:bg-base-300 sm:p-3 ${selectedUser && selectedUser._id === user._id ? "bg-base-300 ring-1 ring-base-300" : ""}`}
           >
             <div className="relative mx-auto lg:mx-0">
               <img

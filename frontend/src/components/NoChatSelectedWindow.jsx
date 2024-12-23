@@ -2,7 +2,7 @@ import Logo from "./Logo";
 
 const NoChatSelectedWindow = () => {
   return (
-    <div className="flex w-full flex-1 flex-col items-center justify-center bg-base-100/50 p-16">
+    <div className="flex w-full flex-1 flex-col items-center justify-center bg-base-100/50 px-2 lg:p-16">
       <div className="max-w-md space-y-6 text-center">
         <div className="mb-4 flex justify-center gap-4">
           <div className="relative">

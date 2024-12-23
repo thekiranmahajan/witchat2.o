@@ -35,12 +35,12 @@ const ChatSelectedWindow = () => {
   }, [messages]);
 
   return (
-    <div className="flex-1 flex-col overflow-auto">
+    <div className="flex-1 flex-col overflow-y-auto">
       <ChatHeader />
       {isMessagesLoading ? (
         <MessageSkeleton />
       ) : (
-        <div className="flex-1 space-y-4 overflow-y-auto p-4">
+        <div className="flex-1 space-y-4 overflow-y-auto overflow-x-hidden p-4">
           {messages.map((message) => (
             <div
               key={message._id}
@@ -64,12 +64,12 @@ const ChatSelectedWindow = () => {
                   {formatMessageTime(message.createdAt)}
                 </time>
               </div>
-              <div className="chat-bubble flex flex-col">
+              <div className="chat-bubble chat-bubble-accent flex flex-col break-words">
                 {message.image && (
                   <img
                     src={message.image}
                     alt="Attachment"
-                    className="mb-2 rounded-md sm:max-w-48"
+                    className="mb-2 max-w-52 rounded-md"
                   />
                 )}
                 {message.text && <p>{message.text}</p>}

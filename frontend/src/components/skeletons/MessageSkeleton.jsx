@@ -2,7 +2,7 @@ const MessageSkeleton = () => {
   const skeletonMessages = Array(6).fill(null);
 
   return (
-    <div className="flex-1 space-y-4 overflow-y-auto p-4">
+    <div className="flex-1 space-y-4 overflow-y-auto overflow-x-hidden p-4">
       {skeletonMessages.map((_, index) => (
         <div
           key={index}
