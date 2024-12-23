@@ -10,6 +10,11 @@ const io = new Server(server, {
     origin: ["http://localhost:5173"],
   },
 });
+
+export function getSocketIdFromUserId(userId) {
+  return userSocketMap[userId];
+}
+
 // Online users e.g. userId: socketId
 const userSocketMap = {};
 
