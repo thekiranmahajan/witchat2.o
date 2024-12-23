@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import useChatStore from "../store/useChatStore";
 import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
@@ -17,6 +17,7 @@ const ChatSelectedWindow = () => {
   } = useChatStore();
 
   const { authUser } = useAuthStore();
+  const messageEndRef = useRef(null);
 
   useEffect(() => {
     if (selectedUser) {
@@ -26,6 +27,12 @@ const ChatSelectedWindow = () => {
 
     return () => unsubscribeFromMessages();
   }, [getMessages, selectedUser, subscribeToMessages, unsubscribeFromMessages]);
+
+  useEffect(() => {
+    if (messageEndRef.current && messages) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   return (
     <div className="flex-1 flex-col overflow-auto">
@@ -38,6 +45,7 @@ const ChatSelectedWindow = () => {
             <div
               key={message._id}
               className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}
+              ref={messageEndRef}
             >
               <div className="avatar chat-image">
                 <div className="size-10 rounded-full border">
