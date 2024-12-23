@@ -35,7 +35,7 @@ const ChatSelectedWindow = () => {
   }, [messages]);
 
   return (
-    <div className="flex-1 flex-col overflow-y-auto">
+    <div className="flex flex-1 flex-col">
       <ChatHeader />
       {isMessagesLoading ? (
         <MessageSkeleton />

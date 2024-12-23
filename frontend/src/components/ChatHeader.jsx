@@ -24,7 +24,7 @@ const ChatHeader = () => {
             </p>
           </div>
         </div>
-        <button onClick={() => setSelectedUser(null)} className="">
+        <button onClick={() => setSelectedUser(null)} className="mr-2">
           <X />
         </button>
       </div>

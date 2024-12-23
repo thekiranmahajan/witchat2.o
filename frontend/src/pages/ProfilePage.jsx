@@ -67,7 +67,7 @@ const ProfilePage = () => {
                 />
               </label>
             </div>
-            <p>
+            <p className="text-center">
               {isProfileUpdating
                 ? "Uploading.."
                 : "Click the camera icon to update your photo"}

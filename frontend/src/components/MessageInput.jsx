@@ -51,7 +51,7 @@ const MessageInput = () => {
   };
 
   return (
-    <div className="sticky bottom-0 w-full bg-base-100/90 p-3 sm:max-h-9 sm:p-4">
+    <div className="sticky bottom-0 w-full bg-base-100/90 p-3 sm:p-4">
       {/* Image Preview over input field */}
       {imagePreview && (
         <div className="mb-3 flex items-center gap-2">
