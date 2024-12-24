@@ -64,7 +64,9 @@ const ChatSelectedWindow = () => {
                   {formatMessageTime(message.createdAt)}
                 </time>
               </div>
-              <div className="chat-bubble chat-bubble-accent flex flex-col break-words">
+              <div
+                className={`chat-bubble flex flex-col break-words ${message.senderId === authUser._id ? "chat-bubble-accent" : "chat-bubble-secondary"}`}
+              >
                 {message.image && (
                   <img
                     src={message.image}
