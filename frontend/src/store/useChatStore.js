@@ -39,11 +39,12 @@ const useChatStore = create((set, get) => ({
   sendMessage: async (messageData) => {
     const { selectedUser, messages, replyMessage } = get();
     try {
+      set({ replyMessage: null });
       const { data } = await axiosInstance.post(
         `/messages/send/${selectedUser._id}`,
         { ...messageData, repliedMessage: replyMessage?._id },
       );
-      set({ messages: [...messages, data], replyMessage: null });
+      set({ messages: [...messages, data] });
     } catch (error) {
       toast.error(error.response.data.message);
     }
