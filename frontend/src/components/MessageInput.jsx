@@ -39,12 +39,13 @@ const MessageInput = () => {
     if (!text.trim() && !imagePreview) return;
 
     try {
-      await sendMessage({ text: text.trim(), image: imagePreview });
-
-      // Clearing input fields after sending message
       setText("");
       setImagePreview(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
+
+      await sendMessage({ text: text.trim(), image: imagePreview });
+
+      // Clearing input fields after sending message
     } catch (error) {
       console.log("Error sending message:", error);
     }
