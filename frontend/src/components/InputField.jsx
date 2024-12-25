@@ -29,6 +29,7 @@ const InputField = ({
           onChange={(e) => {
             setFormData({ ...formData, [fieldName]: e.target.value });
           }}
+          autoCapitalize={fieldName === "email" ? "none" : undefined}
         />
         {label == "Password" && (
           <button
