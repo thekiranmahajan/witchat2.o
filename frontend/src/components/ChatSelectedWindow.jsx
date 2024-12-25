@@ -30,12 +30,15 @@ const ChatSelectedWindow = () => {
 
   useEffect(() => {
     if (messageEndRef.current && messages) {
-      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+      messageEndRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
     }
   }, [messages]);
 
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col !scroll-smooth">
       <ChatHeader />
       {isMessagesLoading ? (
         <MessageSkeleton />
@@ -52,8 +55,8 @@ const ChatSelectedWindow = () => {
                   <img
                     src={
                       message.senderId === authUser._id
-                        ? authUser.profilePic || "./profile-picture.svg"
-                        : selectedUser.profilePic || "./profile-picture.svg"
+                        ? authUser.profilePic
+                        : selectedUser.profilePic
                     }
                     alt="Profile Picture"
                   />

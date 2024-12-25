@@ -11,10 +11,7 @@ const ChatHeader = () => {
         <div className="flex items-center gap-3">
           <div className="avatar">
             <div className="relative size-10 rounded-full">
-              <img
-                src={selectedUser.profilePic || "./profile-picture.svg"}
-                alt={selectedUser.fullName}
-              />
+              <img src={selectedUser.profilePic} alt={selectedUser.fullName} />
             </div>
           </div>
           <div>

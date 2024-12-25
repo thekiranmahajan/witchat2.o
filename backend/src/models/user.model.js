@@ -18,12 +18,13 @@ const userSchema = new mongoose.Schema(
     },
     profilePic: {
       type: String,
-      default: "",
+      default:
+        "https://res.cloudinary.com/dsdol1bax/image/upload/v1735117951/profile-picture.svg",
     },
   },
   {
     timestamps: true,
-  },
+  }
 );
 
 const User = mongoose.model("User", userSchema);
