@@ -69,7 +69,7 @@ const ChatSelectedWindow = () => {
               onDoubleClick={() => setReplyMessage(message)}
             >
               <div className="avatar chat-image">
-                <div className="size-10 rounded-full border">
+                <div className="size-7 rounded-full border md:size-10">
                   <img
                     src={
                       message.senderId === authUser._id
@@ -106,7 +106,17 @@ const ChatSelectedWindow = () => {
                     className="mb-2 max-w-52 rounded-md"
                   />
                 )}
-                {message.text && <p>{message.text}</p>}
+                {message.text && (
+                  <p
+                    className="flex flex-col whitespace-pre-wrap break-words"
+                    dangerouslySetInnerHTML={{
+                      __html: message.text.replace(
+                        /(https?:\/\/[^\s]+)/g,
+                        '<a href="$1" target="_blank" class="text-base-100 underline break-words">$1</a>',
+                      ),
+                    }}
+                  ></p>
+                )}
               </div>
             </div>
           ))}
