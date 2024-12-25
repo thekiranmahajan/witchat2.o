@@ -45,7 +45,7 @@ const Sidebar = () => {
           </span>
         </div>
       </div>
-      <div className="w-full overflow-y-auto py-3">
+      <div className="scrollbar-hide w-full overflow-y-auto overflow-x-hidden py-3">
         {filteredUsers.map((user) => (
           <button
             key={user._id}
