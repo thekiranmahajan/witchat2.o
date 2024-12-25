@@ -4,7 +4,7 @@ import { Image, Send, X } from "lucide-react";
 import toast from "react-hot-toast";
 
 const MessageInput = () => {
-  const { sendMessage } = useChatStore();
+  const { sendMessage, replyMessage, clearReplyMessage } = useChatStore();
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const fileInputRef = useRef();
@@ -53,6 +53,22 @@ const MessageInput = () => {
 
   return (
     <div className="sticky bottom-0 w-full bg-base-100/90 p-3 sm:p-4">
+      {replyMessage && (
+        <div className="mb-3 flex items-center gap-2">
+          <div className="flex-1">
+            <p className="text-sm text-base-content">
+              Replying to: {replyMessage.text || "📷 Image"}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={clearReplyMessage}
+            className="btn btn-circle btn-ghost"
+          >
+            <X className="size-5" />
+          </button>
+        </div>
+      )}
       {/* Image Preview over input field */}
       {imagePreview && (
         <div className="mb-3 flex items-center gap-2">

@@ -9,6 +9,7 @@ const useChatStore = create((set, get) => ({
   selectedUser: null,
   isUsersLoading: false,
   isMessagesLoading: false,
+  replyMessage: null,
 
   getUsers: async () => {
     set({ isUsersLoading: true });
@@ -36,16 +37,24 @@ const useChatStore = create((set, get) => ({
     }
   },
   sendMessage: async (messageData) => {
-    const { selectedUser, messages } = get();
+    const { selectedUser, messages, replyMessage } = get();
     try {
       const { data } = await axiosInstance.post(
         `/messages/send/${selectedUser._id}`,
-        messageData,
+        { ...messageData, repliedMessage: replyMessage?._id },
       );
-      set({ messages: [...messages, data] });
+      set({ messages: [...messages, data], replyMessage: null });
     } catch (error) {
       toast.error(error.response.data.message);
     }
+  },
+
+  setReplyMessage: (message) => {
+    set({ replyMessage: message });
+  },
+
+  clearReplyMessage: () => {
+    set({ replyMessage: null });
   },
 
   subscribeToMessages: () => {
@@ -53,11 +62,23 @@ const useChatStore = create((set, get) => ({
     if (!selectedUser) return;
     const socket = useAuthStore.getState().socket;
 
-    socket.on("newMessage", (newMessage) => {
+    socket.on("newMessage", async (newMessage) => {
       const isMessageSentFromSelectedUser =
-        newMessage.senderId === selectedUser._id;
+        newMessage.senderId === selectedUser._id ||
+        newMessage.receiverId === selectedUser._id;
 
       if (!isMessageSentFromSelectedUser) return;
+
+      // Ensure the message is properly populated
+      if (
+        newMessage.repliedMessage &&
+        typeof newMessage.repliedMessage === "string"
+      ) {
+        const { data } = await axiosInstance.get(
+          `/messages/${newMessage.repliedMessage}`,
+        );
+        newMessage.repliedMessage = data;
+      }
 
       set((state) => ({ messages: [...state.messages, newMessage] }));
     });

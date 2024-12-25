@@ -18,8 +18,12 @@ const messageSchema = new mongoose.Schema(
     image: {
       type: String,
     },
+    repliedMessage: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Message",
+    },
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 
 const Message = mongoose.model("Message", messageSchema);
