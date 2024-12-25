@@ -2,9 +2,31 @@ import useChatStore from "../store/useChatStore";
 import Sidebar from "../components/Sidebar";
 import ChatSelectedWindow from "../components/ChatSelectedWindow";
 import NoChatSelectedWindow from "../components/NoChatSelectedWindow";
+import { useEffect } from "react";
 
 const HomePage = () => {
-  const { selectedUser } = useChatStore();
+  const { selectedUser, setSelectedUser } = useChatStore();
+
+  useEffect(() => {
+    if (selectedUser) {
+      window.history.pushState({ selectedUser: true }, "Chat Selected");
+    }
+
+    const handleBackButton = (event) => {
+      if (selectedUser) {
+        event.preventDefault();
+        setSelectedUser(null);
+        window.history.pushState({}, "No Chat Selected");
+      }
+    };
+
+    window.addEventListener("popstate", handleBackButton);
+
+    return () => {
+      window.removeEventListener("popstate", handleBackButton);
+    };
+  }, [selectedUser, setSelectedUser]);
+
   return (
     <div className="min-h-screen bg-base-200">
       <div className="flex items-center justify-center px-4 pt-20">
