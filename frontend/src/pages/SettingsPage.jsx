@@ -1,17 +1,23 @@
-import { Send } from "lucide-react";
+import { Send, X } from "lucide-react";
 import { PREVIEW_MESSAGES, THEMES } from "../lib/constants";
 import useThemeStore from "../store/useThemeStore";
+import { Link } from "react-router-dom";
 
 const SettingsPage = () => {
   const { theme, setTheme } = useThemeStore();
   return (
     <div className="container mx-auto min-h-screen max-w-5xl px-4 pb-10 pt-20">
       <div className="space-y-6">
-        <div className="flex flex-col gap-1">
-          <h2 className="text-lg font-semibold">Theme</h2>
-          <p className="text-sm text-base-content/70">
-            Choose a theme for your chat interface
-          </p>
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-1">
+            <h2 className="text-lg font-semibold">Theme</h2>
+            <p className="text-sm text-base-content/70">
+              Choose a theme for your chat interface
+            </p>
+          </div>
+          <Link to="/">
+            <X className="opacity-80 hover:opacity-100 md:size-7" />
+          </Link>
         </div>
         {/* Themes */}
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 md:grid-cols-8">
@@ -65,7 +71,7 @@ const SettingsPage = () => {
                 </div>
 
                 {/* Chat Messages */}
-                <div className="max-h-[200px] min-h-[200px] space-y-4 overflow-y-auto bg-base-100 p-4">
+                <div className="max-h-48 min-h-48 space-y-4 overflow-y-auto bg-base-100 p-4">
                   {PREVIEW_MESSAGES.map((message) => (
                     <div
                       key={message.id}
@@ -90,7 +96,7 @@ const SettingsPage = () => {
                   <div className="flex gap-2">
                     <input
                       type="text"
-                      className="input input-bordered h-10 flex-1 text-sm"
+                      className="input input-bordered h-10 min-w-24 flex-1 text-sm"
                       placeholder="Type a message..."
                       value="This is a preview"
                       readOnly

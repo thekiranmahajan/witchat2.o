@@ -60,7 +60,7 @@ const ChatSelectedWindow = () => {
       {isMessagesLoading ? (
         <MessageSkeleton />
       ) : (
-        <div className="flex-1 space-y-4 overflow-y-auto overflow-x-hidden p-4">
+        <div className="flex-1 space-y-4 overflow-y-auto overflow-x-hidden !scroll-smooth p-4">
           {messages.map((message) => (
             <div
               key={message._id}
@@ -86,14 +86,14 @@ const ChatSelectedWindow = () => {
                 </time>
               </div>
               <div
-                className={`chat-bubble flex flex-col break-words ${message.senderId === authUser._id ? "chat-bubble-accent" : "chat-bubble-secondary"}`}
+                className={`chat-bubble flex flex-col break-words ${message.senderId === authUser._id ? "chat-bubble-secondary text-secondary-content" : "chat-bubble-primary text-primary-content"}`}
               >
                 {message.repliedMessage && (
                   <div
                     onClick={() => scrollToMessage(message.repliedMessage._id)}
-                    className="mb-2 cursor-pointer rounded border-l-4 border-primary bg-neutral p-2 transition-colors"
+                    className="mb-2 cursor-pointer rounded border-l-4 border-info/80 bg-neutral p-2 transition-colors"
                   >
-                    <p className="text-sm text-primary-content">
+                    <p className="text-sm text-neutral-content/50">
                       {message.repliedMessage.text ||
                         (message.repliedMessage.image ? "📷 Image" : "Message")}
                     </p>

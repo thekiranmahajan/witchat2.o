@@ -18,11 +18,14 @@ const SidebarSkeleton = () => {
       </div>
 
       {/* Skeleton Contacts */}
-      <div className="w-full overflow-y-auto py-3">
+      <div className="scrollbar-hide w-full overflow-y-auto overflow-x-hidden py-3">
         {skeletonContacts.map((_, index) => (
-          <div key={index} className="flex w-full items-center gap-3 p-3">
+          <div
+            key={index}
+            className="flex w-full items-center gap-3 p-2  sm:p-3"
+          >
             <div className="relative mx-auto lg:mx-0">
-              <div className="skeleton size-12 rounded-full" />
+              <div className="skeleton size-10 rounded-full lg:size-12" />
             </div>
 
             <div className="hidden min-w-0 flex-1 text-left lg:block">
