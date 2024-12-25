@@ -29,8 +29,8 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-base-200">
-      <div className="flex items-center justify-center px-4 pt-20">
-        <div className="h-[calc(100vh-8rem)] w-full max-w-6xl rounded-lg bg-base-100 shadow-xl">
+      <div className="flex items-center justify-center px-4 pt-16 md:pt-20">
+        <div className="h-[calc(100vh-5.5rem)] w-full max-w-7xl rounded-lg bg-base-100 shadow-xl">
           <div className="flex h-full overflow-hidden rounded-lg">
             <Sidebar />
 
