@@ -5,7 +5,7 @@ import { LogOut, Settings, User } from "lucide-react";
 const Header = () => {
   const { logout, authUser } = useAuthStore();
   return (
-    <header className="fixed top-0 z-40 w-full border-b border-base-300 bg-base-100/80 backdrop-blur-lg">
+    <header className="z-40 w-full border-b border-base-300 bg-base-100/80 backdrop-blur-lg">
       <div className="container mx-auto h-16 px-4">
         <div className="flex h-full items-center justify-between">
           <div className="flex items-center gap-8">

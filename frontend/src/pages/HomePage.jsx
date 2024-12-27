@@ -28,9 +28,9 @@ const HomePage = () => {
   }, [selectedUser, setSelectedUser]);
 
   return (
-    <div className="min-h-screen bg-base-200">
-      <div className="flex items-center justify-center px-4 pt-16 md:pt-20">
-        <div className="h-[calc(100vh-5.5rem)] w-full max-w-7xl rounded-lg bg-base-100 shadow-xl">
+    <div className="h-full bg-base-200 pb-2">
+      <div className="flex items-center justify-center px-4 pt-5">
+        <div className="h-[calc(100vh-6rem)] w-full max-w-7xl rounded-lg bg-base-100 shadow-xl">
           <div className="flex h-full overflow-hidden rounded-lg">
             <Sidebar />
 

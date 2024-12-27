@@ -52,9 +52,9 @@ const SignUpPage = () => {
     signup(formData);
   };
   return (
-    <div className="mt-16 grid min-h-screen lg:mt-10 lg:grid-cols-2">
+    <div className="grid h-screen lg:grid-cols-2">
       {/* Left Side */}
-      <div className="flex flex-col items-center justify-center p-6 sm:p-12">
+      <div className="flex flex-col items-center p-6 sm:p-12">
         <div className="w-full max-w-md space-y-6">
           {/* Logo */}
           <div className="mb-8 text-center">
@@ -81,7 +81,7 @@ const SignUpPage = () => {
             <InputField
               type="text"
               fieldName="email"
-              placeholder="kiran.mahajan@example.com"
+              placeholder="kiran@example.com"
               label="Email"
               icon={Mail}
               formData={formData}

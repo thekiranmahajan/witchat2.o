@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const SettingsPage = () => {
   const { theme, setTheme } = useThemeStore();
   return (
-    <div className="container mx-auto min-h-screen max-w-5xl px-4 pb-10 pt-20">
+    <div className="container mx-auto min-h-screen max-w-5xl px-4 py-10">
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-1">

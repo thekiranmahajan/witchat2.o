@@ -33,7 +33,7 @@ const ProfilePage = () => {
     };
   };
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       <div className="mx-auto max-w-2xl p-4 py-8">
         <div className="relative space-y-8 rounded-xl bg-base-300 p-6">
           <Link to="/">
