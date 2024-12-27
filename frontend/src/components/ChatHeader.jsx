@@ -13,6 +13,9 @@ const ChatHeader = () => {
             <div className="relative size-10 rounded-full">
               <img src={selectedUser.profilePic} alt={selectedUser.fullName} />
             </div>
+            <span
+              className={`${onlineUsers.includes(selectedUser._id) ? "bg-success" : "bg-error"} absolute bottom-0 right-0 size-3 rounded-full ring-2 ring-zinc-900`}
+            ></span>
           </div>
           <div>
             <h3 className="font-medium">{selectedUser.fullName}</h3>
