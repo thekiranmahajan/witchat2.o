@@ -1,12 +1,19 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useChatStore from "../store/useChatStore";
 import { Image, Send, X } from "lucide-react";
 import toast from "react-hot-toast";
+import useAuthStore from "../store/useAuthStore";
+import TypingLoader from "./TypingLoader";
 
 const MessageInput = () => {
-  const { sendMessage, replyMessage, clearReplyMessage } = useChatStore();
+  const { sendMessage, replyMessage, clearReplyMessage, selectedUser, users } =
+    useChatStore();
+  const { socket, authUser } = useAuthStore();
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
+  const [isTyping, setIsTyping] = useState(false);
+  const [showTypingIndicator, setShowTypingIndicator] = useState(false);
+  const [typingTimeout, setIsTypingTimeout] = useState(null);
   const fileInputRef = useRef();
 
   const handleImageChange = (e) => {
@@ -45,14 +52,56 @@ const MessageInput = () => {
 
       await sendMessage({ text: text.trim(), image: imagePreview });
 
-      // Clearing input fields after sending message
+      // Clear typing state when message is sent
+      if (socket) {
+        socket.emit("stop-typing", {
+          typingUserId: authUser._id,
+          receiverId: selectedUser._id,
+        });
+        setIsTyping(false);
+        if (typingTimeout) clearTimeout(typingTimeout);
+      }
     } catch (error) {
       console.log("Error sending message:", error);
     }
   };
 
+  const handleTyping = (e) => {
+    setText(e.target.value);
+    if (!selectedUser) return;
+
+    if (socket && !isTyping) {
+      setIsTyping(true);
+
+      socket.emit("start-typing", {
+        typingUserId: authUser._id,
+        receiverId: selectedUser._id,
+      });
+
+      if (typingTimeout) clearTimeout(typingTimeout);
+
+      const timeout = setTimeout(() => {
+        socket.emit("stop-typing", {
+          typingUserId: authUser._id,
+          receiverId: selectedUser._id,
+        });
+        setIsTyping(false);
+      }, 2000);
+
+      setIsTypingTimeout(timeout);
+    }
+  };
+
+  useEffect(() => {
+    const selectedUserTyping = users.find(
+      (user) => user._id === selectedUser?._id && user.isTyping,
+    );
+    setShowTypingIndicator(!!selectedUserTyping);
+  }, [users, selectedUser]);
+
   return (
     <div className="sticky bottom-0 w-full bg-base-100/90 p-3 sm:p-4">
+      {showTypingIndicator && selectedUser && <TypingLoader />}
       {replyMessage && (
         <div className="mb-3 flex items-center gap-2">
           <div className="flex-1">
@@ -99,7 +148,7 @@ const MessageInput = () => {
             className="input input-md input-bordered w-full rounded-lg"
             placeholder="Type a message..."
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={handleTyping}
           />
           <input
             type="file"

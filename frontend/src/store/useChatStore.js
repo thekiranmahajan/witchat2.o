@@ -63,6 +63,25 @@ const useChatStore = create((set, get) => ({
     if (!selectedUser) return;
     const socket = useAuthStore.getState().socket;
 
+    socket.on("user-started-typing", ({ typingUserId }) => {
+      if (selectedUser && typingUserId === selectedUser._id) {
+        set((state) => ({
+          users: state.users.map((user) =>
+            user._id === typingUserId ? { ...user, isTyping: true } : user,
+          ),
+        }));
+      }
+    });
+    socket.on("user-stopped-typing", ({ typingUserId }) => {
+      if (selectedUser && typingUserId === selectedUser._id) {
+        set((state) => ({
+          users: state.users.map((user) =>
+            user._id === typingUserId ? { ...user, isTyping: false } : user,
+          ),
+        }));
+      }
+    });
+
     socket.on("newMessage", async (newMessage) => {
       const isMessageSentFromSelectedUser =
         newMessage.senderId === selectedUser._id ||
