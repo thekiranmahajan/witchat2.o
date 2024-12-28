@@ -6,7 +6,7 @@ const Header = () => {
   const { logout, authUser } = useAuthStore();
   return (
     <header className="z-40 w-full border-b border-base-300 bg-base-100/80 backdrop-blur-lg">
-      <div className="container mx-auto h-16 px-4">
+      <div className="container mx-auto h-14 px-4 sm:h-16">
         <div className="flex h-full items-center justify-between">
           <div className="flex items-center gap-8">
             <Link

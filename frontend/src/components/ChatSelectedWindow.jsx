@@ -60,7 +60,7 @@ const ChatSelectedWindow = () => {
       {isMessagesLoading ? (
         <MessageSkeleton />
       ) : (
-        <div className="flex-1 space-y-4 overflow-y-auto overflow-x-hidden !scroll-smooth p-4">
+        <div className="flex-1 space-y-2.5 overflow-y-auto overflow-x-hidden !scroll-smooth p-4 md:space-y-4">
           {messages.map((message) => (
             <div
               key={message._id}
