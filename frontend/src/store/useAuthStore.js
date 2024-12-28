@@ -104,22 +104,6 @@ const useAuthStore = create((set, get) => ({
     socket.on("getOnlineUsers", (usersIds) => {
       set({ onlineUsers: usersIds });
     });
-
-    socket.on("user-started-typing", ({ typingUserId }) => {
-      set((state) => ({
-        onlineUsers: state.onlineUsers.map((user) =>
-          user._id === typingUserId ? { ...user, isTyping: true } : user,
-        ),
-      }));
-    });
-
-    socket.on("user-stopped-typing", ({ typingUserId }) => {
-      set((state) => ({
-        onlineUsers: state.onlineUsers.map((user) =>
-          user._id === typingUserId ? { ...user, isTyping: false } : user,
-        ),
-      }));
-    });
   },
 
   disconnectSocket: () => {
