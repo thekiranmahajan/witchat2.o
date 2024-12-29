@@ -4,7 +4,7 @@ import ChatHeader from "./ChatHeader";
 import MessageInput from "./MessageInput";
 import MessageSkeleton from "./skeletons/MessageSkeleton";
 import useAuthStore from "../store/useAuthStore";
-import { formatMessageTime } from "../lib/utils";
+import { formatMessageTime, processMessageText } from "../lib/utils";
 
 const ChatSelectedWindow = () => {
   const {
@@ -117,15 +117,11 @@ const ChatSelectedWindow = () => {
                     />
                   )}
                   {text && (
-                    <p
-                      className="flex flex-col whitespace-pre-wrap break-words"
+                    <div
                       dangerouslySetInnerHTML={{
-                        __html: text.replace(
-                          /(https?:\/\/[^\s]+)/g,
-                          '<a href="$1" target="_blank" class="text-base-100 underline break-words">$1</a>',
-                        ),
+                        __html: processMessageText(text),
                       }}
-                    ></p>
+                    />
                   )}
                 </div>
               </div>
