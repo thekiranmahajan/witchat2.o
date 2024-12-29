@@ -2,6 +2,7 @@ import { generateToken } from "../lib/utils.js";
 import User from "../models/user.model.js";
 import bycrypt from "bcryptjs";
 import cloudinary from "../lib/cloudinary.js";
+import { emitNewUserSignup } from "../lib/socket.js";
 
 export const signup = async (req, res) => {
   const { fullName, email, password } = req.body;
@@ -34,6 +35,9 @@ export const signup = async (req, res) => {
       // Generate token
       generateToken(newUser._id, res);
       await newUser.save();
+
+      emitNewUserSignup(newUser);
+
       res.status(200).json({
         _id: newUser._id,
         fullName: newUser.fullName,
@@ -66,7 +70,6 @@ export const login = async (req, res) => {
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
-
     generateToken(user._id, res);
     res.status(200).json({
       _id: user._id,
@@ -108,7 +111,7 @@ export const updateProfile = async (req, res) => {
       {
         profilePic: uploadResponse.secure_url,
       },
-      { new: true },
+      { new: true }
     );
     res.status(200).json(updatedUser);
   } catch (error) {

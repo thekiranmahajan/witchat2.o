@@ -45,9 +45,12 @@ io.on("connection", (socket) => {
     console.log("A user is disconnected", socket.id);
 
     delete userSocketMap[userId];
-    // broadcast to all users
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
   });
 });
+
+export function emitNewUserSignup(newUser) {
+  io.emit("newUserSignup", newUser);
+}
 
 export { io, app, server };

@@ -3,6 +3,7 @@ import axiosInstance from "../lib/axiosInstance";
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 import { BACKEND_BASE_URL } from "../lib/constants";
+import useChatStore from "./useChatStore";
 
 const BASE_URL =
   import.meta.env.MODE === "development" ? BACKEND_BASE_URL : "/";
@@ -103,6 +104,16 @@ const useAuthStore = create((set, get) => ({
 
     socket.on("getOnlineUsers", (usersIds) => {
       set({ onlineUsers: usersIds });
+    });
+
+    socket.on("newUserSignup", (newUser) => {
+      const { users } = useChatStore.getState();
+      const newUserAlreadyExists = users.some(
+        (user) => user._id === newUser._id,
+      );
+      if (!newUserAlreadyExists) {
+        useChatStore.setState({ users: [...users, newUser] });
+      }
     });
   },
 
