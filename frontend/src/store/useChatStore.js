@@ -25,7 +25,7 @@ const useChatStore = create((set, get) => ({
   },
 
   getMessages: async (userId) => {
-    set({ isMessagesLoading: true });
+    set({ isMessagesLoading: true, messages: [] });
     try {
       const { data } = await axiosInstance.get(`/messages/${userId}`);
       set((state) => ({ messages: [...state.messages, ...data] }));
