@@ -6,8 +6,14 @@ import useAuthStore from "../store/useAuthStore";
 import TypingLoader from "./TypingLoader";
 
 const MessageInput = () => {
-  const { sendMessage, replyMessage, clearReplyMessage, selectedUser, users } =
-    useChatStore();
+  const {
+    sendMessage,
+    replyMessage,
+    clearReplyMessage,
+    selectedUser,
+    users,
+    isMessagesLoading,
+  } = useChatStore();
   const { socket, authUser } = useAuthStore();
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
@@ -101,7 +107,12 @@ const MessageInput = () => {
 
   return (
     <div className="sticky bottom-0 w-full bg-base-100/90 p-3 sm:p-4">
-      {showTypingIndicator && selectedUser && <TypingLoader />}
+      <div
+        className={`transition-opacity duration-300 ${showTypingIndicator && selectedUser && !isMessagesLoading ? "opacity-100" : "opacity-0"}`}
+      >
+        <TypingLoader />
+      </div>
+
       {replyMessage && (
         <div className="mb-3 flex items-center gap-2">
           <div className="flex-1">
