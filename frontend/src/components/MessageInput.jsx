@@ -44,16 +44,10 @@ const MessageInput = () => {
       setImagePreview(reader.result);
     };
     reader.readAsDataURL(image);
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
   };
   const handleRemoveImage = () => {
     setImagePreview(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
   };
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -139,12 +133,6 @@ const MessageInput = () => {
     );
     setShowTypingIndicator(!!selectedUserTyping);
   }, [users, selectedUser]);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
 
   return (
     <div className="sticky bottom-0 w-full bg-base-100/90 p-3 sm:p-4">
