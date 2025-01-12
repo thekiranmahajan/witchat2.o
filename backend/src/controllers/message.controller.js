@@ -79,3 +79,27 @@ export const sendMessage = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const deleteMessages = async (req, res) => {
+  try {
+    const { id: chatPartnerId } = req.params;
+    const loggedInUserId = req.user._id;
+
+    await Messsage.deleteMany({
+      $or: [
+        {
+          senderId: loggedInUserId,
+          receiverId: chatPartnerId,
+        },
+        {
+          senderId: chatPartnerId,
+          receiverId: loggedInUserId,
+        },
+      ],
+    });
+    res.status(200).json({ message: "Messages deleted successfully" });
+  } catch (error) {
+    console.log("Error in deleteMessages controller: ", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};

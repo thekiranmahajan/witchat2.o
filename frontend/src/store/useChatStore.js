@@ -25,13 +25,28 @@ const useChatStore = create((set, get) => ({
     }
   },
 
-  getMessages: async (userId) => {
+  getMessages: async (selectedUserId) => {
     set({ isMessagesLoading: true, messages: [] });
     try {
-      const { data } = await axiosInstance.get(`/messages/${userId}`);
+      const { data } = await axiosInstance.get(`/messages/${selectedUserId}`);
       set({ messages: data });
     } catch (error) {
       console.log("Error in getMessages", error);
+      toast.error(error.response.data.message);
+    } finally {
+      set({ isMessagesLoading: false });
+    }
+  },
+  deleteMessages: async (selectedUserId) => {
+    set({ isMessagesLoading: true, messages: [] });
+    try {
+      const { data } = await axiosInstance.delete(
+        `/messages/${selectedUserId}`,
+      );
+      set({ messages: data });
+      toast.success(data.message);
+    } catch (error) {
+      console.log("Error in deleteMessages", error);
       toast.error(error.response.data.message);
     } finally {
       set({ isMessagesLoading: false });
