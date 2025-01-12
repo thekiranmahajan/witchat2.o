@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import useChatStore from "../store/useChatStore";
-import { Image, Send, X } from "lucide-react";
+import { Image, LoaderPinwheel, Send, X } from "lucide-react";
 import toast from "react-hot-toast";
 import useAuthStore from "../store/useAuthStore";
 import TypingLoader from "./TypingLoader";
@@ -13,6 +13,7 @@ const MessageInput = () => {
     selectedUser,
     users,
     isMessagesLoading,
+    isImageUploading,
   } = useChatStore();
   const { socket, authUser } = useAuthStore();
   const [text, setText] = useState("");
@@ -68,6 +69,11 @@ const MessageInput = () => {
         if (typingTimeout) clearTimeout(typingTimeout);
       }
     } catch (error) {
+      if (imagePreview) {
+        toast.error("Image upload failed: " + error.message);
+      } else {
+        toast.error("Message send failed: " + error.message);
+      }
       console.log("Error sending message:", error);
     }
   };
@@ -97,6 +103,26 @@ const MessageInput = () => {
       setIsTypingTimeout(timeout);
     }
   };
+
+  const handlePaste = (e) => {
+    const items = e.clipboardData.items;
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf("image") !== -1) {
+        const blob = items[i].getAsFile();
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          setImagePreview(event.target.result);
+        };
+        reader.readAsDataURL(blob);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handlePasteEvent = (e) => handlePaste(e);
+    window.addEventListener("paste", handlePasteEvent);
+    return () => window.removeEventListener("paste", handlePasteEvent);
+  }, []);
 
   useEffect(() => {
     const selectedUserTyping = users.find(
@@ -177,10 +203,14 @@ const MessageInput = () => {
           />
           <button
             type="button"
-            className={`btn btn-circle btn-ghost flex ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
+            className={`btn btn-circle btn-ghost relative flex items-center justify-center ${imagePreview ? "text-emerald-500" : "text-zinc-400"}`}
             onClick={() => fileInputRef.current.click()}
           >
-            <Image className="size-5 sm:size-6" />
+            {isImageUploading ? (
+              <LoaderPinwheel className="size-5 animate-spin text-emerald-500 sm:size-6" />
+            ) : (
+              <Image className="size-5 sm:size-6" />
+            )}
           </button>
         </div>
         <button

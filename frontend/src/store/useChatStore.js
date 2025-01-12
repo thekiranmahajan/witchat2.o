@@ -10,6 +10,7 @@ const useChatStore = create((set, get) => ({
   isUsersLoading: false,
   isMessagesLoading: false,
   replyMessage: null,
+  isImageUploading: false,
 
   getUsers: async () => {
     set({ isUsersLoading: true });
@@ -39,14 +40,26 @@ const useChatStore = create((set, get) => ({
   sendMessage: async (messageData) => {
     const { selectedUser, messages, replyMessage } = get();
     try {
-      set({ replyMessage: null });
+      set({
+        replyMessage: null,
+        isImageUploading: !!messageData.image,
+      });
+
       const { data } = await axiosInstance.post(
         `/messages/send/${selectedUser._id}`,
         { ...messageData, repliedMessage: replyMessage?._id },
       );
-      set({ messages: [...messages, data] });
+      set({
+        messages: [...messages, data],
+        isImageUploading: false,
+      });
     } catch (error) {
-      toast.error(error.response.data.message);
+      set({ isImageUploading: false });
+      if (messageData.image) {
+        toast.error("Image upload failed: " + error.response.data.message);
+      } else {
+        toast.error("Message send failed: " + error.response.data.message);
+      }
     }
   },
 
