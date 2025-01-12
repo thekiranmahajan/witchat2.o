@@ -61,7 +61,7 @@ const ChatSelectedWindow = () => {
         <MessageSkeleton />
       ) : (
         <div className="flex-1 space-y-2.5 overflow-y-auto overflow-x-hidden !scroll-smooth p-4 md:space-y-4">
-          {messages.map((message) => {
+          {Array.isArray(messages) && messages.map((message) => {
             const {
               _id,
               createdAt,
