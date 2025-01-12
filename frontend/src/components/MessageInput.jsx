@@ -21,6 +21,7 @@ const MessageInput = () => {
   const [showTypingIndicator, setShowTypingIndicator] = useState(false);
   const [typingTimeout, setIsTypingTimeout] = useState(null);
   const fileInputRef = useRef();
+  const inputRef = useRef(null);
 
   const handleImageChange = (e) => {
     const image = e.target.files[0];
@@ -28,8 +29,8 @@ const MessageInput = () => {
       toast.error("No image selected");
       return;
     }
-    if (image.size > 10 * 1024 * 1024) {
-      toast.error("File size exceeds 10MB");
+    if (image.size > 30 * 1024 * 1024) {
+      toast.error("File size exceeds 30MB");
       return;
     }
     if (!image.type.startsWith("image/")) {
@@ -58,7 +59,6 @@ const MessageInput = () => {
 
       await sendMessage({ text: text.trim(), image: imagePreview });
 
-      // Clear typing state when message is sent
       if (socket) {
         socket.emit("stop-typing", {
           typingUserId: authUser._id,
@@ -104,6 +104,12 @@ const MessageInput = () => {
     );
     setShowTypingIndicator(!!selectedUserTyping);
   }, [users, selectedUser]);
+
+  useEffect(() => {
+    if (inputRef.current && text.length > 0) {
+      inputRef.current.focus();
+    }
+  }, [text, imagePreview]);
 
   return (
     <div className="sticky bottom-0 w-full bg-base-100/90 p-3 sm:p-4">
@@ -160,6 +166,7 @@ const MessageInput = () => {
             placeholder="Type a message..."
             value={text}
             onChange={handleTyping}
+            ref={inputRef}
           />
           <input
             type="file"
