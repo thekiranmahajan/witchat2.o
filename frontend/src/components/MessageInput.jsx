@@ -44,10 +44,16 @@ const MessageInput = () => {
       setImagePreview(reader.result);
     };
     reader.readAsDataURL(image);
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
   const handleRemoveImage = () => {
     setImagePreview(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
   const handleSendMessage = async (e) => {
     e.preventDefault();
@@ -67,6 +73,9 @@ const MessageInput = () => {
         });
         setIsTyping(false);
         if (typingTimeout) clearTimeout(typingTimeout);
+      }
+      if (inputRef.current) {
+        inputRef.current.focus();
       }
     } catch (error) {
       if (imagePreview) {
@@ -132,10 +141,10 @@ const MessageInput = () => {
   }, [users, selectedUser]);
 
   useEffect(() => {
-    if (inputRef.current && text.length > 0) {
+    if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, [text, imagePreview]);
+  }, []);
 
   return (
     <div className="sticky bottom-0 w-full bg-base-100/90 p-3 sm:p-4">
