@@ -50,9 +50,10 @@ export const sendMessage = async (req, res) => {
     let imageUrl;
     if (image) {
       const uploadResponse = await cloudinary.uploader.upload(image, {
-        folder: "chat-images",
+        folder: "chat-images", // Ensure the folder is explicitly set
         tags: ["chat-images"],
       });
+      console.log("Cloudinary upload response:", uploadResponse); // Debugging log
       imageUrl = uploadResponse.secure_url;
     }
 
