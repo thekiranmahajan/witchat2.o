@@ -41,7 +41,7 @@ const useChatStore = create((set, get) => ({
     set({ isMessagesLoading: true, messages: [] });
     try {
       await axiosInstance.delete(`/messages/${selectedUserId}`);
-      set({ messages: [], selectedUser: null });
+      set({ messages: [] });
       toast.success("Messages deleted successfully");
     } catch (error) {
       console.log("Error in deleteMessages", error);
