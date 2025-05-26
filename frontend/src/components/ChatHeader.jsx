@@ -1,22 +1,23 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import useChatStore from "../store/useChatStore";
 import useAuthStore from "../store/useAuthStore";
 import { X } from "lucide-react";
+import { formatLastSeen } from "../lib/utils";
 
 const ChatHeader = () => {
   const { selectedUser, setSelectedUser, deleteMessages } = useChatStore();
   const { onlineUsers } = useAuthStore();
   const headerRef = useRef(null);
 
-  const handleDeleteMessages = async () => {
+  const handleDeleteMessages = useCallback(async () => {
     if (window.confirm("Are you sure you want to delete all messages?")) {
       await deleteMessages(selectedUser._id);
     }
-  };
+  }, [deleteMessages, selectedUser]);
 
-  const handleTripleClick = () => {
+  const handleTripleClick = useCallback(() => {
     handleDeleteMessages();
-  };
+  }, [handleDeleteMessages]);
 
   useEffect(() => {
     const headerElement = headerRef.current;
@@ -39,7 +40,7 @@ const ChatHeader = () => {
     return () => {
       headerElement.removeEventListener("click", handleClick);
     };
-  }, [headerRef]);
+  }, [headerRef, handleTripleClick]);
 
   return (
     <div
@@ -59,7 +60,9 @@ const ChatHeader = () => {
           <div>
             <h3 className="font-medium">{selectedUser.fullName}</h3>
             <p className="text-xs text-base-content/70 sm:text-sm">
-              {onlineUsers.includes(selectedUser._id) ? "Online" : "Offline"}
+              {onlineUsers.includes(selectedUser._id)
+                ? "Online"
+                : formatLastSeen(selectedUser.lastSeen)}
             </p>
           </div>
         </div>

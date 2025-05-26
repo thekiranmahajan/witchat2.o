@@ -108,6 +108,10 @@ const useChatStore = create((set, get) => ({
       }
     });
 
+    socket.on("userLastSeenUpdated", () => {
+      get().getUsers();
+    });
+
     socket.on("newMessage", async (newMessage) => {
       const isMessageSentFromSelectedUser =
         newMessage.senderId === selectedUser._id ||

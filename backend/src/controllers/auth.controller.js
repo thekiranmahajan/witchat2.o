@@ -2,7 +2,7 @@ import { generateToken } from "../lib/utils.js";
 import User from "../models/user.model.js";
 import bycrypt from "bcryptjs";
 import cloudinary from "../lib/cloudinary.js";
-import { emitNewUserSignup } from "../lib/socket.js";
+import { emitNewUserSignup, io } from "../lib/socket.js";
 
 export const signup = async (req, res) => {
   const { fullName, email, password } = req.body;
@@ -87,6 +87,20 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
+    // Update lastSeen on logout
+    if (req.user && req.user._id) {
+      const updatedUser = await User.findByIdAndUpdate(
+        req.user._id,
+        { lastSeen: new Date() },
+        { new: true }
+      );
+      if (updatedUser) {
+        io.emit("userLastSeenUpdated", {
+          userId: req.user._id,
+          lastSeen: updatedUser.lastSeen,
+        });
+      }
+    }
     res.cookie("jwt", "", { maxAge: 0 });
     res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {

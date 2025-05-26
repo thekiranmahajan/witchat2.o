@@ -59,7 +59,7 @@ const Sidebar = () => {
                 className="size-10 rounded-full object-cover lg:size-12"
               />
               {onlineUsers.includes(user._id) && (
-                <span className="absolute bottom-0 right-0 size-3 rounded-full bg-green-500 ring-2 ring-zinc-900"></span>
+                <span className="absolute bottom-0 right-0 size-3 rounded-full bg-success ring-2 ring-zinc-900"></span>
               )}
             </div>
             <div className="hidden min-w-0 text-left lg:block">

@@ -19,7 +19,11 @@ const userSchema = new mongoose.Schema(
     profilePic: {
       type: String,
       default:
-        "https://res.cloudinary.com/dsdol1bax/image/upload/v1735117951/profile-picture.svg",
+        "https://res.cloudinary.com/dsdol1bax/image/upload/v1748280539/profile-pictures/profile-picture_fankv5.svg",
+    },
+    lastSeen: {
+      type: Date,
+      default: null,
     },
   },
   {
