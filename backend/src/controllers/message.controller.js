@@ -50,10 +50,10 @@ export const sendMessage = async (req, res) => {
     let imageUrl;
     if (image) {
       const uploadResponse = await cloudinary.uploader.upload(image, {
-        folder: "chat-images", // Ensure the folder is explicitly set
+        folder: "chat-images",
         tags: ["chat-images"],
       });
-      console.log("Cloudinary upload response:", uploadResponse); // Debugging log
+      console.log("Cloudinary upload response:", uploadResponse);
       imageUrl = uploadResponse.secure_url;
     }
 
@@ -100,6 +100,12 @@ export const deleteMessages = async (req, res) => {
         },
       ],
     });
+
+    const receiverSocketId = getSocketIdFromUserId(chatPartnerId);
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("chatDeleted", { userId: loggedInUserId });
+    }
+
     res.status(200).json({ message: "Messages deleted successfully" });
   } catch (error) {
     console.log("Error in deleteMessages controller: ", error.message);

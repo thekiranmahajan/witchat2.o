@@ -132,6 +132,12 @@ const useChatStore = create((set, get) => ({
 
       set((state) => ({ messages: [...state.messages, newMessage] }));
     });
+
+    socket.on("chatDeleted", ({ userId }) => {
+      if (selectedUser && selectedUser._id === userId) {
+        get().getMessages(selectedUser._id);
+      }
+    });
   },
 
   unsubscribeFromMessages: () => {
