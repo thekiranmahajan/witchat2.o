@@ -22,19 +22,26 @@ export const getMessages = async (req, res) => {
     const { id: chatPartnerId } = req.params;
     const loggedInUserId = req.user._id;
 
-    const messages = await Messsage.find({
+    // Pagination support: ?page=1&limit=30
+    const page = Math.max(1, parseInt(req.query.page)) || 1;
+    const limit = Math.max(1, parseInt(req.query.limit)) || 30;
+
+    // Find messages between the two users, sorted by createdAt desc for pagination
+    const query = {
       $or: [
-        {
-          senderId: loggedInUserId,
-          receiverId: chatPartnerId,
-        },
-        {
-          senderId: chatPartnerId,
-          receiverId: loggedInUserId,
-        },
+        { senderId: loggedInUserId, receiverId: chatPartnerId },
+        { senderId: chatPartnerId, receiverId: loggedInUserId },
       ],
-    }).populate("repliedMessage");
-    res.status(200).json(messages);
+    };
+
+    const messages = await Messsage.find(query)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .populate("repliedMessage");
+
+    // Return in chronological order (oldest first) for the client UI
+    res.status(200).json(messages.reverse());
   } catch (error) {
     console.log("Error in getMessages controller: ", error.message);
     res.status(500).json({ message: "Internal Server Error" });
