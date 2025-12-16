@@ -15,7 +15,7 @@ const MessageInput = () => {
     isMessagesLoading,
     isImageUploading,
   } = useChatStore();
-  const { socket, authUser } = useAuthStore();
+  const { socket, authUser, onlineUsers } = useAuthStore();
   const [text, setText] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const [isTyping, setIsTyping] = useState(false);
@@ -212,10 +212,10 @@ const MessageInput = () => {
         </div>
         <button
           type="submit"
-          className="btn btn-circle btn-ghost"
+          className={`btn btn-circle btn-ghost ${onlineUsers.includes(selectedUser._id) ? "text-success" : "text-error"}`}
           disabled={!text.trim() && !imagePreview}
         >
-          <Send className="size-6 md:size-7" />
+          <Send className={`size-6 md:size-7`} />
         </button>
       </form>
     </div>
